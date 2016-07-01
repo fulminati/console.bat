@@ -5,5 +5,5 @@ a confortable moment of development
 # How install
 
 ```
-bitsadmin.exe /transfer https://goo.gl/yRYNnI %USERPROFILE%\Console.bat
+bitsadmin.exe /transfer "Consolebat" https://goo.gl/yRYNnI %USERPROFILE%\Console.bat
 ```

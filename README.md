@@ -4,4 +4,4 @@ a confortable moment of development
 
 # How install
 
-<code>bitsadmin.exe /tranfer https://goo.gl/yRYNnI %USERPROFILE%\Console.bat</code>
+<code>bitsadmin.exe /transfer https://goo.gl/yRYNnI %USERPROFILE%\Console.bat</code>

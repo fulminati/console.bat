@@ -5,7 +5,7 @@ if "%1" == "__init__" (
 	cls
 	doskey clear=cls
 	doskey ls=dir /a
-	doskey 
+	doskey console=%~dpf0 
 	cd %~dp0
 	goto :exit
 )

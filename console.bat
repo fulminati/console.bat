@@ -1,21 +1,40 @@
 @echo off
 
-if not "%1" == "init" goto:run
+rem cmd.exe preloaded settings
+if "%1" == "__init__" (
+	cls
+	doskey clear=cls
+	doskey ls=dir /a
+	doskey 
+	goto :eof
+)
 
-cls
+rem update 
+if "%1" == "update" (
+	bitsadmin.exe /transfer "console.bat"^
+		https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat^
+		%~dpf0 > nul 2> nul
+	echo console.bat restart required type exit or close.	
+	goto :eof
+)
 
-doskey clear=cls
-doskey ls=dir /a
+rem install 
+if "%1" == "install" (
+	bitsadmin.exe /transfer "console.bat"^
+		https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat^
+		%2\console.bat
+	echo console.bat installed on %2
+	echo use Desktop shortcup to launch
+	goto :eof
+)
 
-goto:eof
-
-:run
-
-set PROMPT0=%PROMPT%
-
+rem prepare dos prompt
+set PROMP0=%PROMPT%
 set PROMPT=#$S
 
-cmd /K call "%~dpf0" init
+rem launch indipend cmd.exe process
+cmd /K call "%~dpf0" __init__
 
-set PROMPT=%PROMPT0%
+rem restore dos prompt
+set PROMPT=%PROMP0%
 

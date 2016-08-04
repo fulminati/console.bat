@@ -1,11 +1,14 @@
 @echo off
 
+rem 
+set CONSOLE_VERSION=0.0.2
+
 rem cmd.exe preloaded settings
 if "%1" == "__init__" (
 	cls
 	doskey clear=cls
 	doskey ls=dir /a
-	doskey console=%~dpf0 
+	doskey console=%~dpf0 $*
 	doskey edit=%~dpf0 edit $1
 	cd %~dp0
 	goto :exit
@@ -41,6 +44,16 @@ if "%1" == "install" (
 rem edit command
 if "%1" == "edit" (
 	start /B "" "%CONSOLE_EDIT%" %2
+	goto:eof
+)
+
+rem edit command
+if "%1" == "version" (
+	echo.
+	echo Console.bat v%CONSOLE_VERSION%
+	echo ------------------
+	echo Powered by Francesco Bianco ^<bianco@javanile.org^>
+	echo Licensed with The GNU General Public License v3.0
 	goto:eof
 )
 

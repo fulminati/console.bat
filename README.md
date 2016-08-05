@@ -1,11 +1,22 @@
-# Console.bat
+# Console.bat 
 
-a confortable moment of development
+Get a confortable moment of development with usefull Bash or Linux command into cmd.exe Windows shell, no emulator, no library, simple macro with alias.
 
-[console.bat](https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat)
+# Install into your system
 
-# How install
+Follow this simple instructions:
+
+Download this [Console.bat](https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat) <--- Right-click and Save link as...
+
+Launch the file console.bat and run this command
 
 ```
-bitsadmin.exe /transfer "Consolebat" https://goo.gl/yRYNnI %USERPROFILE%\Console.bat
+# console install <your-projects-roots-path>
 ```
+
+for examples
+
+```
+# console install c:\Users\theman\NetBeansProjects
+```
+

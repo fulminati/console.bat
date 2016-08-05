@@ -1,7 +1,7 @@
 @echo off
 
 rem set current version
-set CONSOLE_VER=0.0.3
+set CONSOLE_VER=0.0.4
 set CONSOLE_BAT=%~dpf0
 set CONSOLE_DIR=%~dp0
 
@@ -23,9 +23,7 @@ if "%1" == "__init__" (
 		echo   Console.bat v%CONSOLE_VER%
 		echo   ------------------
 		echo   directory: %CD%		
-	) else (
-		cd %CONSOLE_DIR%
-	)
+	) 
 	goto:eof
 )
 
@@ -55,6 +53,7 @@ if "%1" == "install" (
 rem open 
 if "%1" == "open" (
 	if [%2] == [] goto :syntaxerror
+	cd %CONSOLE_DIR%
     for /d %%a in (%2*) do (
 		cd %%a 
 		goto :open
@@ -129,6 +128,9 @@ if [%PROMP0%] == [] set PROMP0=%PROMPT%
 
 rem set new prompt
 set PROMPT=#$S
+
+rem 
+cd %CONSOLE_DIR%
 
 rem launch indipend cmd.exe process
 cmd /K call "%CONSOLE_BAT%" __init__

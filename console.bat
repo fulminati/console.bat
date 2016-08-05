@@ -1,7 +1,10 @@
+rem 
+rem
+rem 
 @echo off
 
-rem 
-set CONSOLE_VERSION=0.0.2
+rem set current version
+set CONSOLE_VERSION=0.0.3
 
 rem cmd.exe preloaded settings
 if "%1" == "__init__" (
@@ -26,6 +29,10 @@ if "%1" == "update" (
 
 rem install 
 if "%1" == "install" (
+	if [%2] == [] (
+		echo error
+		goto:eof
+	)
 	bitsadmin.exe /transfer "console.bat"^
 		https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat^
 		%2\console.bat > nul 2> nul
@@ -47,6 +54,20 @@ if "%1" == "edit" (
 )
 
 rem edit command
+if "%1" == "help" (
+	echo.
+	echo   Console.bat subcommands
+	echo   -----------------------
+	echo   console install ^<path^>    Install console.bat to ^<path^> and create shortcut
+	echo   console update            Update console.bat to latest version
+	echo.
+	echo   Linux inspired commands
+	echo   -----------------------
+	echo   ls        List file on directory
+	goto:eof
+)
+
+rem edit command
 if "%1" == "--version" (
 	echo.
 	echo   Console.bat v%CONSOLE_VERSION%
@@ -60,7 +81,7 @@ rem
 if not [%1] == [] (
 	echo.
 	echo   Unknown subcommand: '%1'
-	echo   Type 'console help' for usage.
+	echo   Type 'console --help' for usage.
 	goto:eof	
 )
 

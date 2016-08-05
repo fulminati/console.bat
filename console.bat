@@ -69,7 +69,7 @@ if "%1" == "open" (
 		cd ..
 	)
 	echo.
-	echo   Project directory not found: '%2\%3'
+	echo   Project directory not found: '%2*\%3*'
 	goto :eof
 	:subopen
 	if not [%3] == [] (

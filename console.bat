@@ -105,7 +105,7 @@ if "%1" == "open" (
 	echo   %CD%
 	echo 
 	echo   ready.
-	goto :eof
+	goto :eof 
 )
 
 rem ls

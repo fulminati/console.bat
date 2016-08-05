@@ -11,7 +11,7 @@ Follow this simple instructions:
 2. Launch the file console.bat and run this command
 
 ```
-# console install <your-projects-roots-path>
+# console install <your-projects-root-path>
 ```
 
 for examples
@@ -27,3 +27,12 @@ Clear console screen
 ```
 # clear
 ```
+
+## Projects and codebase utility
+
+### console: open
+Open a project folder rapidly
+```
+# open <name-start-with> [subname-start-with]
+```
+

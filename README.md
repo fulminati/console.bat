@@ -6,9 +6,9 @@ Get a confortable moment of development with usefull Bash or Linux command into 
 
 Follow this simple instructions:
 
-Download this [Console.bat](https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat) <--- Right-click and Save link as...
+1. Download this [Console.bat](https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat) <--- Right-click and Save link as...
 
-Launch the file console.bat and run this command
+2. Launch the file console.bat and run this command
 
 ```
 # console install <your-projects-roots-path>
@@ -20,3 +20,9 @@ for examples
 # console install c:\Users\theman\NetBeansProjects
 ```
 
+# Linux inspired commands
+
+Clear console screen
+```
+# clear
+```

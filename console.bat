@@ -100,8 +100,11 @@ if "%1" == "open" (
 	)	
 	:open
 	echo.
-	echo   Project directory: 
+	echo   Opening project directory
+	echo   -------------------------
 	echo   %CD%
+	echo 
+	echo   ready.
 	goto :eof
 )
 

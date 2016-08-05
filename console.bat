@@ -2,6 +2,7 @@
 
 rem set current version
 set CONSOLE_VERSION=0.0.3
+set CONSOLE_PROCESS=%~dpf0
 
 rem cmd.exe preloaded settings
 if "%1" == "__init__" (
@@ -37,6 +38,8 @@ if "%1" == "install" (
 		o.Save > _.vbs
 	cscript _.vbs > nul 2> nul
 	del _.vbs
+	set CONSOLE_RELOAD=%2\console.bat
+	echo.
 	echo console.bat installed on %2
 	echo use Desktop shortcup to launch
 	goto:eof
@@ -51,6 +54,14 @@ if "%1" == "wget" (
 rem edit command
 if "%1" == "edit" (
 	start /B "" "%CONSOLE_EDIT%" %2
+	goto:eof
+)
+
+rem edit command
+if "%1" == "reload" (
+	set CONSOLE_PROCESS=%2
+	set CONSOLE_RELOAD=YES
+	echo set variable
 	goto:eof
 )
 
@@ -90,11 +101,11 @@ rem detect edit command
 set CONSOLE_EDIT=%ProgramFiles(x86)%\Notepad++\notepad++.exe
 
 rem prepare dos prompt
-set PROMP0=%PROMPT%
+if [%PROMP0%] == [] set PROMP0=%PROMPT%
 set PROMPT=#$S
 
 rem launch indipend cmd.exe process
-cmd /K call "%~dpf0" __init__
+cmd /K call "%CONSOLE_PROCESS%" __init__
 
 rem restore dos prompt
 set PROMPT=%PROMP0%

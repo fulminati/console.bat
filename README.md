@@ -2,7 +2,7 @@
 
 Get a confortable moment of development with usefull Bash or Linux command into cmd.exe Windows shell, no emulator, no library, simple macro with alias.
 
-# Install into your system
+## Install into your system
 
 Follow this simple instructions:
 
@@ -20,8 +20,9 @@ for examples
 # console install c:\Users\theman\NetBeansProjects
 ```
 
-# Linux inspired commands
+## Linux inspired commands
 
+### bash: clear
 Clear console screen
 ```
 # clear

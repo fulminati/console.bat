@@ -10,7 +10,7 @@ rem cmd.exe preloaded settings
 if "%1" == "__init__" (
 	cls
 	doskey clear=cls
-	doskey ls=dir /a
+	doskey ls=%CONSOLE_BAT% ls $1
 	doskey console=%CONSOLE_BAT% $*
 	doskey edit=%CONSOLE_BAT% edit $1
 	doskey wget=%CONSOLE_BAT% wget $1
@@ -103,7 +103,15 @@ if "%1" == "open" (
 	goto :eof
 )
 
-rem 
+
+rem ls
+if "%1" == "ls" (
+	echo.
+	dir /w /o:gn | findstr /c:"^[^ ]" /r
+	goto :eof
+)
+
+rem wget
 if "%1" == "wget" (
 	echo wget
 	goto :eof

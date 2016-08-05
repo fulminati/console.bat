@@ -99,10 +99,10 @@ if "%1" == "open" (
 	)	
 	:open
 	echo.
-	echo   Directory: %CD%
+	echo   Project directory opening
+	echo   %CD%
 	goto :eof
 )
-
 
 rem ls
 if "%1" == "ls" (

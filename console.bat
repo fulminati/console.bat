@@ -14,14 +14,8 @@ if "%1" == "__init__" (
 	doskey console=%CONSOLE_BAT% $*
 	doskey edit=%CONSOLE_BAT% edit $1
 	doskey wget=%CONSOLE_BAT% wget $1
-	doskey open=%CONSOLE_BAT% open $1
+	doskey open=%CONSOLE_BAT% open $1 $2
 	color
-	if "%2" == "__open__" (
-		echo.
-		echo   Console.bat v%CONSOLE_VER%
-		echo   ------------------
-		echo   project: %CD%		
-	) 
 	goto:eof
 )
 
@@ -52,13 +46,13 @@ if "%1" == "open" (
 	cd %CONSOLE_DIR%
     for /d %%a in (%2*) do (
 		cd %%a 
-		goto :open
+		goto :subopen
 	)
     for /d %%a in (*) do (
 		cd %%a
 		for /d %%b in (%2*) do (
 			cd %%b 
-			goto :open
+			goto :subopen
 		)		
 		cd ..
 	)
@@ -68,7 +62,7 @@ if "%1" == "open" (
 			cd %%b 
 			for /d %%c in (%2*) do (
 				cd %%c 
-				goto :open
+				goto :subopen
 			)
 			cd ..
 		)		
@@ -77,15 +71,16 @@ if "%1" == "open" (
 	echo.
 	echo   Project directory not found: '%2\%3'
 	goto:eof
-	:open
+	:subopen
 	if not [%3] == [] (
 		for /d %%a in (%3*) do (
 			cd %%a 
-			goto :subopen
+			goto :open
 		)		
-	)
-	:subopen
-	cmd /K call "%CONSOLE_BAT%" __init__ __open__ 
+	)	
+	:open
+	echo.
+	echo   Directory: %CD%
 	goto:eof
 )
 

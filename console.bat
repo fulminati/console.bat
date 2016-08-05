@@ -1,19 +1,20 @@
 @echo off
 
 rem set current version
-set CONSOLE_VERSION=0.0.3
-set CONSOLE_PROCESS=%~dpf0
+set CONSOLE_VER=0.0.3
+set CONSOLE_BAT=%~dpf0
+set CONSOLE_DIR=%~dp0
 
 rem cmd.exe preloaded settings
 if "%1" == "__init__" (
 	cls
 	doskey clear=cls
 	doskey ls=dir /a
-	doskey console=%~dpf0 $*
-	doskey edit=%~dpf0 edit $1
-	doskey wget=%~dpf0 wget $1
+	doskey console=%CONSOLE_BAT% $*
+	doskey edit=%CONSOLE_BAT% edit $1
+	doskey wget=%CONSOLE_BAT% wget $1
 	color
-	cd %~dp0
+	cd %CONSOLE_DIR%
 	goto:eof
 )
 
@@ -21,30 +22,22 @@ rem update
 if "%1" == "update" (
 	bitsadmin.exe /transfer "console.bat"^
 		https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat^
-		%~dpf0 > nul 2> nul
+		%CONSOLE_BAT% > nul 2> nul
 	echo.
 	echo   Console.bat successfull updated!
-	echo   Type 'exit' to restart.
-	echo.
+	echo   Type 'exit' or close and reopen.
 	goto:eof
 )
 
 rem install 
 if "%1" == "install" (
 	if [%2] == [] goto :syntaxerror
-	bitsadmin.exe /transfer "console.bat"^
-		https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat^
-		%2\console.bat > nul 2> nul
-	echo set o = WScript.CreateObject("WScript.Shell"^).CreateShortcut("%HOMEDRIVE%%HOMEPATH%\Desktop\%~n2.lnk"^):^
-		o.TargetPath = "%2\console.bat":^
-		o.IconLocation = "cmd.exe":^
-		o.Save > _.vbs
-	cscript _.vbs > nul 2> nul
-	del _.vbs
-	set CONSOLE_RELOAD=%2\console.bat
+	bitsadmin.exe /transfer "console.bat" https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat %2\console.bat > nul 2> nul
+	echo set o = WScript.CreateObject("WScript.Shell"^).CreateShortcut("%HOMEDRIVE%%HOMEPATH%\Desktop\%~n2.lnk"^): o.TargetPath = "%2\console.bat": o.IconLocation = "cmd.exe": o.Save > _.vbs
+	cscript _.vbs > nul 2> nul & del _.vbs
 	echo.
-	echo console.bat installed on %2
-	echo use Desktop shortcup to launch
+	echo   Console.bat successfull installed!
+	echo   Double-click on desktop icon to open.
 	goto:eof
 )
 
@@ -57,14 +50,6 @@ if "%1" == "wget" (
 rem edit command
 if "%1" == "edit" (
 	start /B "" "%CONSOLE_EDIT%" %2
-	goto:eof
-)
-
-rem edit command
-if "%1" == "reload" (
-	set CONSOLE_PROCESS=%2
-	set CONSOLE_RELOAD=YES
-	echo set variable
 	goto:eof
 )
 
@@ -103,12 +88,14 @@ if not [%1] == [] (
 rem detect edit command
 set CONSOLE_EDIT=%ProgramFiles(x86)%\Notepad++\notepad++.exe
 
-rem prepare dos prompt
+rem save old dos prompt
 if [%PROMP0%] == [] set PROMP0=%PROMPT%
+
+rem set new prompt
 set PROMPT=#$S
 
 rem launch indipend cmd.exe process
-cmd /K call "%CONSOLE_PROCESS%" __init__
+cmd /K call "%CONSOLE_BAT%" __init__
 
 rem restore dos prompt
 set PROMPT=%PROMP0%

@@ -5,6 +5,9 @@ set CONSOLE_VER=0.0.3
 set CONSOLE_BAT=%~dpf0
 set CONSOLE_DIR=%~dp0
 
+rem 
+setlocal enabledelayedexpansion
+
 rem cmd.exe preloaded settings
 if "%1" == "__init__" (
 	cls
@@ -13,8 +16,16 @@ if "%1" == "__init__" (
 	doskey console=%CONSOLE_BAT% $*
 	doskey edit=%CONSOLE_BAT% edit $1
 	doskey wget=%CONSOLE_BAT% wget $1
+	doskey open=%CONSOLE_BAT% open $1
 	color
-	cd %CONSOLE_DIR%
+	if "%2" == "__open__" (
+		echo.
+		echo   Console.bat v%CONSOLE_VER%
+		echo   ------------------
+		echo   directory: %CD%		
+	) else (
+		cd %CONSOLE_DIR%
+	)
 	goto:eof
 )
 
@@ -41,6 +52,30 @@ if "%1" == "install" (
 	goto:eof
 )
 
+rem open 
+if "%1" == "open" (
+	if [%2] == [] goto :syntaxerror
+    for /d %%a in (%2*) do (
+		cd %%a 
+		goto :open
+	)
+    for /d %%a in (%2*) do (
+		cd %%a
+		for /d %%b in (%2*) do (
+			cd %%a 
+			cd
+			cd..
+		)		
+		cd ..
+	)
+	echo.
+	echo   Project directory not found: '%2\%3'
+	goto:eof
+	:open
+	cmd /K call "%CONSOLE_BAT%" __init__ __open__ 
+	goto:eof
+)
+
 rem 
 if "%1" == "wget" (
 	echo wget
@@ -60,6 +95,7 @@ if "%1" == "--help" (
 	echo   -----------------------
 	echo   console install ^<path^>    Install console.bat to ^<path^> and create shortcut
 	echo   console update            Update console.bat to latest version
+	echo   open ^<name^> ^[subname^] 
 	echo.
 	echo   Linux inspired commands
 	echo   -----------------------

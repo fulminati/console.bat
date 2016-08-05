@@ -12,7 +12,7 @@ if "%1" == "__init__" (
 	doskey clear=cls
 	doskey console=%CONSOLE_BAT% $*
 	doskey edit=%CONSOLE_BAT% edit $1
-	doskey wget=%CONSOLE_BAT% wget $1
+	doskey wget=%CONSOLE_BAT% wget $1 $2
 	doskey open=%CONSOLE_BAT% open $1 $2
 	doskey ls=%CONSOLE_BAT% ls $1
 	color
@@ -21,7 +21,7 @@ if "%1" == "__init__" (
 
 rem update 
 if "%1" == "update" (
-	bitsadmin.exe /transfer "console.bat" %CONSOLE_SRC% %CONSOLE_BAT% > nul 2> nul
+	bitsadmin.exe /transfer "update" %CONSOLE_SRC% %CONSOLE_BAT% > nul 2> nul
 	echo.
 	echo   Console.bat successfull updated!
 	echo   Type 'exit' or close and reopen.
@@ -31,7 +31,7 @@ if "%1" == "update" (
 rem install 
 if "%1" == "install" (
 	if [%2] == [] goto :syntaxerror
-	bitsadmin.exe /transfer "console.bat" %CONSOLE_SRC% %2\console.bat > nul 2> nul
+	bitsadmin.exe /transfer "install" %CONSOLE_SRC% %2\console.bat > nul 2> nul
 	echo set o = WScript.CreateObject("WScript.Shell"^).CreateShortcut("%HOMEDRIVE%%HOMEPATH%\Desktop\%~n2.lnk"^): o.TargetPath = "%2\console.bat": o.IconLocation = "cmd.exe": o.Save > _.vbs
 	cscript _.vbs > nul 2> nul & del _.vbs
 	echo.
@@ -134,7 +134,7 @@ if "%1" == "--help" (
 	echo   -----------------------
 	echo   console install ^<path^>    Install console.bat to ^<path^> and create shortcut
 	echo   console update            Update console.bat to latest version
-	echo   open ^<name^> ^[subname^] 
+	echo   open ^<name^> ^[subname^]   Open project folder with name and subname
 	echo.
 	echo   Linux inspired commands
 	echo   -----------------------

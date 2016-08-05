@@ -84,6 +84,17 @@ if "%1" == "open" (
 				goto :open
 			)	
 			cd ..
+		)	
+		for /d %%a in (*) do (
+			cd %%a 
+			for /d %%b in (*) do (
+				cd %%b 
+				for /d %%c in (%3*) do (
+					cd %%c 
+					goto :open
+				)
+			)	
+			cd ..
 		)			
 	)	
 	:open

@@ -76,7 +76,15 @@ if "%1" == "open" (
 		for /d %%a in (%3*) do (
 			cd %%a 
 			goto :open
-		)		
+		)	
+		for /d %%a in (*) do (
+			cd %%a 
+			for /d %%b in (%3*) do (
+				cd %%b 
+				goto :open
+			)	
+			cd ..
+		)			
 	)	
 	:open
 	echo.

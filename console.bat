@@ -1,7 +1,7 @@
 @echo off
 
 rem set current version
-set CONSOLE_VER=0.0.5
+set CONSOLE_VER=0.0.7
 set CONSOLE_BAT=%~dpf0
 set CONSOLE_DIR=%~dp0
 set CONSOLE_SRC=https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat
@@ -16,7 +16,7 @@ if "%1" == "__init__" (
 	doskey wget=%CONSOLE_BAT% wget $1
 	doskey open=%CONSOLE_BAT% open $1 $2
 	color
-	goto:eof
+	goto :eof
 )
 
 rem update 
@@ -25,7 +25,7 @@ if "%1" == "update" (
 	echo.
 	echo   Console.bat successfull updated!
 	echo   Type 'exit' or close and reopen.
-	goto:eof
+	goto :eof
 )
 
 rem install 
@@ -37,7 +37,7 @@ if "%1" == "install" (
 	echo.
 	echo   Console.bat successfull installed!
 	echo   Double-click on desktop icon to open.
-	goto:eof
+	goto :eof
 )
 
 rem open 
@@ -70,7 +70,7 @@ if "%1" == "open" (
 	)
 	echo.
 	echo   Project directory not found: '%2\%3'
-	goto:eof
+	goto :eof
 	:subopen
 	if not [%3] == [] (
 		for /d %%a in (%3*) do (
@@ -100,19 +100,19 @@ if "%1" == "open" (
 	:open
 	echo.
 	echo   Directory: %CD%
-	goto:eof
+	goto :eof
 )
 
 rem 
 if "%1" == "wget" (
 	echo wget
-	goto:eof
+	goto :eof
 )
 
 rem edit command
 if "%1" == "edit" (
 	start /B "" "%CONSOLE_EDIT%" %2
-	goto:eof
+	goto :eof
 )
 
 rem edit command
@@ -127,7 +127,7 @@ if "%1" == "--help" (
 	echo   Linux inspired commands
 	echo   -----------------------
 	echo   ls        List file on directory
-	goto:eof
+	goto :eof
 )
 
 rem edit command
@@ -137,7 +137,7 @@ if "%1" == "--version" (
 	echo   ------------------
 	echo   Powered by Francesco Bianco ^<bianco@javanile.org^>
 	echo   Licensed with The GNU General Public License v3.0
-	goto:eof
+	goto :eof
 )
 
 rem unknown subcommand 
@@ -145,7 +145,7 @@ if not [%1] == [] (
 	echo.
 	echo   Unknown subcommand: '%1'
 	echo   Type 'console --help' for usage.
-	goto:eof	
+	goto :eof	
 )
 
 rem detect edit command
@@ -161,13 +161,13 @@ rem
 cd %CONSOLE_DIR%
 
 rem launch indipend cmd.exe process
-cmd /K call "%CONSOLE_BAT%" __init__
+cmd.exe /K call "%CONSOLE_BAT%" __init__
 
 rem restore dos prompt
 set PROMPT=%PROMP0%
 
 rem exit
-goto:eof
+goto :eof
 
 rem invoce a syntaxerror
 :syntaxerror

@@ -179,7 +179,7 @@ rem restore dos prompt
 set PROMPT=%PROMP0%
 
 rem exit
-goto :eof
+goto :eof 
 
 rem invoce a syntaxerror
 :syntaxerror

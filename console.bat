@@ -22,7 +22,10 @@ if "%1" == "update" (
 	bitsadmin.exe /transfer "console.bat"^
 		https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat^
 		%~dpf0 > nul 2> nul
-	echo console.bat restart required type exit or close.	
+	echo.
+	echo   Console.bat successfull updated!
+	echo   Type 'exit' to restart.
+	echo.
 	goto:eof
 )
 

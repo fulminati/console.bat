@@ -31,7 +31,7 @@ Clear console screen
 ## Projects and codebase utility
 
 ### console: open
-Open a project folder rapidly
+Open a project folder rapidly 
 ```
 # open <name-start-with> [subname-start-with]
 ```

@@ -103,7 +103,7 @@ if "%1" == "open" (
 	echo   Opening project directory
 	echo   -------------------------
 	echo   %CD%
-	echo 
+	echo. 
 	echo   ready.
 	goto :eof 
 )

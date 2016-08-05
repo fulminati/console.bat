@@ -1,6 +1,3 @@
-rem 
-rem
-rem 
 @echo off
 
 rem set current version
@@ -13,6 +10,7 @@ if "%1" == "__init__" (
 	doskey ls=dir /a
 	doskey console=%~dpf0 $*
 	doskey edit=%~dpf0 edit $1
+	doskey wget=%~dpf0 wget $1
 	color
 	cd %~dp0
 	goto:eof
@@ -29,10 +27,7 @@ if "%1" == "update" (
 
 rem install 
 if "%1" == "install" (
-	if [%2] == [] (
-		echo error
-		goto:eof
-	)
+	if [%2] == [] goto :syntaxerror
 	bitsadmin.exe /transfer "console.bat"^
 		https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat^
 		%2\console.bat > nul 2> nul
@@ -47,6 +42,12 @@ if "%1" == "install" (
 	goto:eof
 )
 
+rem 
+if "%1" == "wget" (
+	echo wget
+	goto:eof
+)
+
 rem edit command
 if "%1" == "edit" (
 	start /B "" "%CONSOLE_EDIT%" %2
@@ -54,7 +55,7 @@ if "%1" == "edit" (
 )
 
 rem edit command
-if "%1" == "help" (
+if "%1" == "--help" (
 	echo.
 	echo   Console.bat subcommands
 	echo   -----------------------
@@ -77,7 +78,7 @@ if "%1" == "--version" (
 	goto:eof
 )
 
-rem 
+rem unknown subcommand 
 if not [%1] == [] (
 	echo.
 	echo   Unknown subcommand: '%1'
@@ -97,3 +98,15 @@ cmd /K call "%~dpf0" __init__
 
 rem restore dos prompt
 set PROMPT=%PROMP0%
+
+rem exit
+goto:eof
+
+rem invoce a syntaxerror
+:syntaxerror
+echo.
+echo   Syntax error: missing argument 
+echo   Type 'console --help' for usage.
+echo.
+
+

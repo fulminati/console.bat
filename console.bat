@@ -1,13 +1,10 @@
 @echo off
 
 rem set current version
-set CONSOLE_VER=0.0.4
+set CONSOLE_VER=0.0.5
 set CONSOLE_BAT=%~dpf0
 set CONSOLE_DIR=%~dp0
 set CONSOLE_SRC=https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat
-
-rem 
-setlocal enabledelayedexpansion
 
 rem cmd.exe preloaded settings
 if "%1" == "__init__" (
@@ -81,6 +78,13 @@ if "%1" == "open" (
 	echo   Project directory not found: '%2\%3'
 	goto:eof
 	:open
+	if not [%3] == [] (
+		for /d %%a in (%3*) do (
+			cd %%a 
+			goto :subopen
+		)		
+	)
+	:subopen
 	cmd /K call "%CONSOLE_BAT%" __init__ __open__ 
 	goto:eof
 )

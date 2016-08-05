@@ -1,7 +1,7 @@
 @echo off
 
 rem set current version
-set CONSOLE_VER=0.0.7
+set CONSOLE_VER=0.0.8
 set CONSOLE_BAT=%~dpf0
 set CONSOLE_DIR=%~dp0
 set CONSOLE_SRC=https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat
@@ -10,11 +10,11 @@ rem cmd.exe preloaded settings
 if "%1" == "__init__" (
 	cls
 	doskey clear=cls
-	doskey ls=%CONSOLE_BAT% ls $1
 	doskey console=%CONSOLE_BAT% $*
 	doskey edit=%CONSOLE_BAT% edit $1
 	doskey wget=%CONSOLE_BAT% wget $1
 	doskey open=%CONSOLE_BAT% open $1 $2
+	doskey ls=%CONSOLE_BAT% ls $1
 	color
 	goto :eof
 )

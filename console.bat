@@ -4,6 +4,7 @@ rem set current version
 set CONSOLE_VER=0.0.4
 set CONSOLE_BAT=%~dpf0
 set CONSOLE_DIR=%~dp0
+set CONSOLE_SRC=https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat
 
 rem 
 setlocal enabledelayedexpansion
@@ -22,16 +23,14 @@ if "%1" == "__init__" (
 		echo.
 		echo   Console.bat v%CONSOLE_VER%
 		echo   ------------------
-		echo   directory: %CD%		
+		echo   project: %CD%		
 	) 
 	goto:eof
 )
 
 rem update 
 if "%1" == "update" (
-	bitsadmin.exe /transfer "console.bat"^
-		https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat^
-		%CONSOLE_BAT% > nul 2> nul
+	bitsadmin.exe /transfer "console.bat" %CONSOLE_SRC% %CONSOLE_BAT% > nul 2> nul
 	echo.
 	echo   Console.bat successfull updated!
 	echo   Type 'exit' or close and reopen.
@@ -41,7 +40,7 @@ if "%1" == "update" (
 rem install 
 if "%1" == "install" (
 	if [%2] == [] goto :syntaxerror
-	bitsadmin.exe /transfer "console.bat" https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat %2\console.bat > nul 2> nul
+	bitsadmin.exe /transfer "console.bat" %CONSOLE_SRC% %2\console.bat > nul 2> nul
 	echo set o = WScript.CreateObject("WScript.Shell"^).CreateShortcut("%HOMEDRIVE%%HOMEPATH%\Desktop\%~n2.lnk"^): o.TargetPath = "%2\console.bat": o.IconLocation = "cmd.exe": o.Save > _.vbs
 	cscript _.vbs > nul 2> nul & del _.vbs
 	echo.
@@ -58,12 +57,23 @@ if "%1" == "open" (
 		cd %%a 
 		goto :open
 	)
-    for /d %%a in (%2*) do (
+    for /d %%a in (*) do (
 		cd %%a
 		for /d %%b in (%2*) do (
-			cd %%a 
-			cd
-			cd..
+			cd %%b 
+			goto :open
+		)		
+		cd ..
+	)
+	for /d %%a in (*) do (
+		cd %%a
+		for /d %%b in (*) do (
+			cd %%b 
+			for /d %%c in (%2*) do (
+				cd %%c 
+				goto :open
+			)
+			cd ..
 		)		
 		cd ..
 	)
@@ -105,7 +115,7 @@ if "%1" == "--help" (
 rem edit command
 if "%1" == "--version" (
 	echo.
-	echo   Console.bat v%CONSOLE_VERSION%
+	echo   Console.bat v%CONSOLE_VER%
 	echo   ------------------
 	echo   Powered by Francesco Bianco ^<bianco@javanile.org^>
 	echo   Licensed with The GNU General Public License v3.0

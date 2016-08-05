@@ -93,13 +93,14 @@ if "%1" == "open" (
 					cd %%c 
 					goto :open
 				)
+				cd ..
 			)	
 			cd ..
 		)			
 	)	
 	:open
 	echo.
-	echo   Project directory opening
+	echo   Project directory: 
 	echo   %CD%
 	goto :eof
 )

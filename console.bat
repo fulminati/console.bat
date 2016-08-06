@@ -42,7 +42,7 @@ if "%1" == "install" (
 )
 
 rem open 
-if "%1" == "open" (
+if "%1" == "home" (
 	cd %CONSOLE_DIR%
 	goto :eof
 )

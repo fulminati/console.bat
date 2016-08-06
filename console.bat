@@ -14,6 +14,7 @@ if "%1" == "__init__" (
 	doskey edit=%CONSOLE_BAT% edit $1
 	doskey wget=%CONSOLE_BAT% wget $1 $2
 	doskey open=%CONSOLE_BAT% open $1 $2
+	doskey home=%CONSOLE_BAT% home
 	doskey ls=%CONSOLE_BAT% ls $1
 	color
 	goto :eof
@@ -37,6 +38,12 @@ if "%1" == "install" (
 	echo.
 	echo   Console.bat successfull installed!
 	echo   Double-click on desktop icon to open.
+	goto :eof
+)
+
+rem open 
+if "%1" == "open" (
+	cd %CONSOLE_DIR%
 	goto :eof
 )
 

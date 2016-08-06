@@ -75,6 +75,22 @@ if "%1" == "open" (
 		)		
 		cd ..
 	)
+	for /d %%a in (*) do (
+		cd %%a
+		for /d %%b in (*) do (
+			cd %%b 
+			for /d %%c in (*) do (
+				cd %%c 
+				for /d %%d in (%2*) do (
+					cd %%d 
+					goto :subopen
+				)
+				cd ..
+			)
+			cd ..
+		)		
+		cd ..
+	)
 	echo.
 	echo   Project directory not found: '%2*\%3*'
 	goto :eof

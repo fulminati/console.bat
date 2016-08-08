@@ -151,7 +151,7 @@ if "%1" == "open" (
 rem ls
 if "%1" == "ls" (
 	echo.
-	dir /w /o:gn | findstr /c:"^[^ ]" /r
+	dir /w /o:gn %2 | findstr /c:"^[^ ]" /r
 	goto :eof
 )
 

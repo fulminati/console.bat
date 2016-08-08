@@ -175,7 +175,7 @@ if "%1" == "sync" (
 
 rem wget
 if "%1" == "wget" (
-	echo wget
+	bitsadmin.exe /transfer "wget" %2
 	goto :eof
 )
 

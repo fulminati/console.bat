@@ -1,5 +1,9 @@
 @echo off
 
+rem 
+rem
+rem
+
 rem set current version
 set CONSOLE_VER=0.0.8
 set CONSOLE_BAT=%~dpf0
@@ -181,7 +185,7 @@ if "%1" == "wget" (
 
 rem edit command
 if "%1" == "edit" (
-	start /B "" "%CONSOLE_EDIT%" %2
+	start /b "" "%CONSOLE_EDT%" %2
 	goto :eof
 )
 
@@ -220,7 +224,7 @@ if not [%1] == [] (
 )
 
 rem detect edit command
-set CONSOLE_EDIT=%ProgramFiles(x86)%\Notepad++\notepad++.exe
+set CONSOLE_EDT=%ProgramFiles(x86)%\Notepad++\notepad++.exe
 
 rem save old dos prompt
 if [%PROMP0%] == [] set PROMP0=%PROMPT%
@@ -232,7 +236,7 @@ rem
 cd %CONSOLE_DIR%
 
 rem launch indipend cmd.exe process
-cmd.exe /K call "%CONSOLE_BAT%" __init__
+cmd.exe /k call "%CONSOLE_BAT%" __init__
 
 rem restore dos prompt
 set PROMPT=%PROMP0%
@@ -246,5 +250,3 @@ echo.
 echo   Syntax error: missing argument 
 echo   Type 'console --help' for usage.
 echo.
-
-

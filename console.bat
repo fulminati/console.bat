@@ -34,8 +34,9 @@ rem install
 if "%1" == "install" (
 	if [%2] == [] goto :syntaxerror
 	bitsadmin.exe /transfer "install" %CONSOLE_SRC% %2\console.bat > nul 2> nul
-	echo set o = WScript.CreateObject("WScript.Shell"^).CreateShortcut("%HOMEDRIVE%%HOMEPATH%\Desktop\%~n2.lnk"^): o.TargetPath = "%2\console.bat": o.IconLocation = "cmd.exe": o.Save > _.vbs
-	cscript _.vbs > nul 2> nul & del _.vbs
+	echo set o = WScript.CreateObject("WScript.Shell"^).CreateShortcut("%HOMEDRIVE%%HOMEPATH%\Desktop\%~n2.lnk"^): o.TargetPath = "%2\console.bat": o.IconLocation = "cmd.exe": o.Save > %2\_.vbs
+	cscript %2\_.vbs > nul 2> nul 
+	del %2\_.vbs
 	attrib %2\console.bat +h +s
 	echo.
 	echo   Console.bat successfull installed!

@@ -148,7 +148,8 @@ if "%1" == "ls" (
 )
 
 rem ls
-if "%1" == "sync" (	
+if "%1" == "sync" (
+	xcopy /c /d /e /h /i /r /y %2 %3
 	goto :eof
 )
 
@@ -171,7 +172,8 @@ if "%1" == "--help" (
 	echo   -----------------------
 	echo   console install ^<path^>    Install console.bat to ^<path^> and create shortcut
 	echo   console update            Update console.bat to latest version
-	echo   open ^<name^> ^[subname^]   Open project folder with name and subname
+	echo   open ^<name^> ^[subname^]     Open project folder with name and subname
+	echo   home                      Open root projects folder
 	echo.
 	echo   Linux inspired commands
 	echo   -----------------------

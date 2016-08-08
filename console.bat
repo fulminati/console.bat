@@ -16,6 +16,7 @@ if "%1" == "__init__" (
 	doskey open=%CONSOLE_BAT% open $1 $2
 	doskey home=%CONSOLE_BAT% home
 	doskey ls=%CONSOLE_BAT% ls $1
+	doskey rm=%CONSOLE_BAT% rm $1 $2 $3
 	color
 	goto :eof
 )
@@ -148,7 +149,18 @@ if "%1" == "ls" (
 )
 
 rem ls
+if "%1" == "rm" (
+	if "%2" == "-fr" (
+		erase /s /q /f %3 
+		rmdir /s /q %3
+		goto :eof
+	)
+	goto :syntaxerror
+)
+
+rem ls
 if "%1" == "sync" (
+	echo.
 	xcopy /c /d /e /h /i /r /y %2 %3
 	goto :eof
 )

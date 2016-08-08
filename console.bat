@@ -9,8 +9,8 @@ set CONSOLE_SRC=https://raw.githubusercontent.com/Javanile/Console.bat/master/co
 rem cmd.exe preloaded settings
 if "%1" == "__init__" (
 	cls
-	doskey clear=cls
 	doskey console=%CONSOLE_BAT% $*
+	doskey clear=%CONSOLE_BAT% clear
 	doskey edit=%CONSOLE_BAT% edit $1
 	doskey wget=%CONSOLE_BAT% wget $1 $2
 	doskey open=%CONSOLE_BAT% open $1 $2
@@ -46,6 +46,12 @@ rem install
 if "%1" == "include" (
 	set sync=call %CONSOLE_BAT% sync
 	set console=call %CONSOLE_BAT%
+	goto :eof
+)
+
+rem open 
+if "%1" == "clear" (
+	cls
 	goto :eof
 )
 

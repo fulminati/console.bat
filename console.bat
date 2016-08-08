@@ -44,6 +44,10 @@ if "%1" == "install" (
 rem open 
 if "%1" == "home" (
 	cd %CONSOLE_DIR%
+	echo.
+	echo   Opening root projects directory
+	echo   -------------------------------
+	echo   %CD%
 	goto :eof
 )
 
@@ -126,8 +130,6 @@ if "%1" == "open" (
 	echo   Opening project directory
 	echo   -------------------------
 	echo   %CD%
-	echo. 
-	echo   ready.
 	goto :eof 
 )
 

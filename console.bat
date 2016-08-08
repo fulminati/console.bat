@@ -41,6 +41,13 @@ if "%1" == "install" (
 	goto :eof
 )
 
+rem install 
+if "%1" == "include" (
+	set sync=call %CONSOLE_BAT% sync
+	set console=call %CONSOLE_BAT%
+	goto :eof
+)
+
 rem open 
 if "%1" == "home" (
 	cd %CONSOLE_DIR%
@@ -137,6 +144,11 @@ rem ls
 if "%1" == "ls" (
 	echo.
 	dir /w /o:gn | findstr /c:"^[^ ]" /r
+	goto :eof
+)
+
+rem ls
+if "%1" == "sync" (	
 	goto :eof
 )
 

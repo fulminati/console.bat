@@ -36,6 +36,7 @@ if "%1" == "install" (
 	bitsadmin.exe /transfer "install" %CONSOLE_SRC% %2\console.bat > nul 2> nul
 	echo set o = WScript.CreateObject("WScript.Shell"^).CreateShortcut("%HOMEDRIVE%%HOMEPATH%\Desktop\%~n2.lnk"^): o.TargetPath = "%2\console.bat": o.IconLocation = "cmd.exe": o.Save > _.vbs
 	cscript _.vbs > nul 2> nul & del _.vbs
+	attrib %2\console.bat +h +s
 	echo.
 	echo   Console.bat successfull installed!
 	echo   Double-click on desktop icon to open.

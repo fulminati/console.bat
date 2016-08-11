@@ -235,7 +235,7 @@ rem detect edit command
 set CONSOLE_EDT=%ProgramFiles(x86)%\Notepad++\notepad++.exe
 
 rem 
-if exist "%CONSOLE_VAR%" for /f "tokens=*" %%s in (%CONSOLE_VAR%) do call :loadvar "%%s"
+if exist "%CONSOLE_VAR%" for /f "tokens=*" %%s in (%CONSOLE_VAR%) do call :loadvar %%s
 
 rem save old dos prompt
 if [%PROMP0%] == [] set PROMP0=%PROMPT%
@@ -263,11 +263,12 @@ echo   Type 'console --help' for usage.
 echo.
 goto :eof 
 
+rem load variable
 :loadvar
-echo %1 | findstr = > nul 2> nul
+echo %* | findstr = > nul 2> nul
 if errorlevel 1 (
-   set "PATH=%PATH%;%1"
+   set "PATH=%PATH%;%*"
 ) else (
-   set %1
+   set "%*"
 )
 goto :eof 

@@ -9,6 +9,7 @@ set CONSOLE_VER=0.0.8
 set CONSOLE_BAT=%~dpf0
 set CONSOLE_DIR=%~dp0
 set CONSOLE_SRC=https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat
+set CONSOLE_VAR=%~dp0\console.var
 
 rem cmd.exe preloaded settings
 if "%1" == "__init__" (
@@ -52,6 +53,13 @@ rem install
 if "%1" == "include" (
 	set sync=call %CONSOLE_BAT% sync
 	set console=call %CONSOLE_BAT%
+	goto :eof
+)
+
+rem open 
+if "%1" == "path" (
+	set "PATH=%PATH%;%2"
+	echo.%2 >> %CONSOLE_VAR%	
 	goto :eof
 )
 
@@ -226,6 +234,9 @@ if not [%1] == [] (
 rem detect edit command
 set CONSOLE_EDT=%ProgramFiles(x86)%\Notepad++\notepad++.exe
 
+rem 
+if exist "%CONSOLE_VAR%" for /f "tokens=*" %%s in (%CONSOLE_VAR%) do call :loadvar "%%s"
+
 rem save old dos prompt
 if [%PROMP0%] == [] set PROMP0=%PROMPT%
 
@@ -250,3 +261,13 @@ echo.
 echo   Syntax error: missing argument 
 echo   Type 'console --help' for usage.
 echo.
+goto :eof 
+
+:loadvar
+echo %1 | findstr = > nul 2> nul
+if errorlevel 1 (
+   set "PATH=%PATH%;%1"
+) else (
+   set %1
+)
+goto :eof 

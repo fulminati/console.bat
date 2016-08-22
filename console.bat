@@ -20,7 +20,7 @@ if "%1" == "__init__" (
 	doskey wget=%CONSOLE_BAT% wget $1 $2
 	doskey open=%CONSOLE_BAT% open $1 $2
 	doskey home=%CONSOLE_BAT% home
-	doskey cron=%CONSOLE_BAT% cron $1 $2
+	doskey cron=%CONSOLE_BAT% cron $1 $2 $3 $4 
 	doskey ls=%CONSOLE_BAT% ls $1
 	doskey rm=%CONSOLE_BAT% rm $1 $2 $3
 	color
@@ -164,9 +164,23 @@ if "%1" == "open" (
 
 rem cron
 if "%1" == "cron" (
-	echo.
-	dir /w /o:gn %2 | findstr /c:"^[^ ]" /r
-	goto :eof
+	rem if [%2] == [] goto :syntaxerror
+	if "%2" == "list" (
+		echo.
+		echo Task name                                Next execution at      Status
+		echo ---------------------------------------- ---------------------- ---------------
+		schtasks /query | findstr console.bat
+		goto :eof
+	)
+	if "%2" == "every" (				
+		schtasks /create /sc %3 /tr %~dpf4 /tn "console.bat %2 %3 %4" > nul 2> nul 
+		goto :eof
+	)
+	if "%2" == "delete" (						
+		schtasks /delete /tn "console.bat %2 %3 %4 %5" /f 
+		goto :eof
+	)	
+	goto :syntaxerror
 )
 
 rem ls
@@ -268,7 +282,6 @@ rem invoce a syntaxerror
 echo.
 echo   Syntax error: missing argument 
 echo   Type 'console --help' for usage.
-echo.
 goto :eof 
 
 rem load variable
@@ -279,4 +292,4 @@ if errorlevel 1 (
 ) else (
    set "%*"
 )
-goto :eof 
+goto :eof

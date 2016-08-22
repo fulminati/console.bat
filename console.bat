@@ -20,6 +20,7 @@ if "%1" == "__init__" (
 	doskey wget=%CONSOLE_BAT% wget $1 $2
 	doskey open=%CONSOLE_BAT% open $1 $2
 	doskey home=%CONSOLE_BAT% home
+	doskey cron=%CONSOLE_BAT% cron $1 $2
 	doskey ls=%CONSOLE_BAT% ls $1
 	doskey rm=%CONSOLE_BAT% rm $1 $2 $3
 	color
@@ -161,6 +162,13 @@ if "%1" == "open" (
 	goto :eof 
 )
 
+rem cron
+if "%1" == "cron" (
+	echo.
+	dir /w /o:gn %2 | findstr /c:"^[^ ]" /r
+	goto :eof
+)
+
 rem ls
 if "%1" == "ls" (
 	echo.
@@ -168,7 +176,7 @@ if "%1" == "ls" (
 	goto :eof
 )
 
-rem ls
+rem rm
 if "%1" == "rm" (
 	if "%2" == "-fr" (
 		erase /s /q /f %3 
@@ -178,7 +186,7 @@ if "%1" == "rm" (
 	goto :syntaxerror
 )
 
-rem ls
+rem sync
 if "%1" == "sync" (
 	echo.
 	xcopy /c /d /e /h /i /r /y %2 %3

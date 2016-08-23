@@ -177,8 +177,7 @@ if "%1" == "cron" (
 		goto :eof
 	)
 	if "%2" == "delete" (						
-		echo schtasks /delete /tn "console.bat %2 %3 %4 %5" /f 
-		schtasks /delete /tn "console.bat %2 %3 %4 %5" /f 
+		schtasks /delete /tn "console.bat %3 %4 %5" /f 
 		goto :eof
 	)	
 	goto :syntaxerror

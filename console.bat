@@ -1,11 +1,14 @@
 @echo off
 
-rem 
-rem
-rem
+rem /**
+rem  * Console.bat v0.1.0
+rem  * ------------------
+rem  * Powered by Francesco Bianco <bianco@javanile.org>
+rem  * Licensed with The GNU General Public License v3.0
+rem  */
 
 rem set current version
-set CONSOLE_VER=0.0.8
+set CONSOLE_VER=0.1.0
 set CONSOLE_BAT=%~dpf0
 set CONSOLE_DIR=%~dp0
 set CONSOLE_SRC=https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat
@@ -20,7 +23,8 @@ if "%1" == "__init__" (
 	doskey wget=%CONSOLE_BAT% wget $1 $2
 	doskey open=%CONSOLE_BAT% open $1 $2
 	doskey home=%CONSOLE_BAT% home
-	doskey cron=%CONSOLE_BAT% cron $1 $2 $3 $4 
+	doskey cron=%CONSOLE_BAT% cron $1 $2 $3 $4
+	doskey sync=%CONSOLE_BAT% sync $1 $2
 	doskey ls=%CONSOLE_BAT% ls $1
 	doskey rm=%CONSOLE_BAT% rm $1 $2 $3
 	color
@@ -228,6 +232,7 @@ if "%1" == "--help" (
 	echo   console update            Update console.bat to latest version
 	echo   open ^<name^> ^[subname^]     Open project folder with name and subname
 	echo   home                      Open root projects folder
+	echo   cron list                 List console.bat user created cron
 	echo.
 	echo   Linux inspired commands
 	echo   -----------------------

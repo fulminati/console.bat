@@ -177,11 +177,11 @@ if "%1" == "cron" (
 		goto :eof
 	)
 	if "%2" == "every" (				
-		schtasks /create /sc %3 /tr %~dpf4 /tn "console.bat %2 %3 %4"
+		schtasks /create /sc %3 /tr %~dpf4 /tn "console.bat %2 %3 %~n4"
 		goto :eof
 	)
 	if "%2" == "weekly" (				
-		schtasks /create /sc weekly /tr %~dpf3 /tn "console.bat %2 %3"
+		schtasks /create /sc weekly /tr %~dpf3 /tn "console.bat %2 %~n3"
 		goto :eof
 	)
 	if "%2" == "delete" (						

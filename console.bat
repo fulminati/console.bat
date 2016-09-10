@@ -1,54 +1,30 @@
 @echo off
 
 rem /**
-rem  * Console.bat v0.1.0
+rem  * Console.bat v0.1.2
 rem  * ------------------
 rem  * Powered by Francesco Bianco <bianco@javanile.org>
 rem  * Licensed with The GNU General Public License v3.0
 rem  */
 
 rem set current version
-set CONSOLE_VER=0.1.1
+set CONSOLE_VER=0.1.2
 set CONSOLE_BAT=%~dpf0
 set CONSOLE_DIR=%~dp0
 set CONSOLE_SRC=https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat
 set CONSOLE_VAR=%~dp0\console.var
 
 rem cmd.exe preloaded settings
-if "%1" == "__init__" (
-	cls
-	doskey console=%CONSOLE_BAT% $*
-	doskey clear=%CONSOLE_BAT% clear
-	doskey edit=%CONSOLE_BAT% edit $1
-	doskey wget=%CONSOLE_BAT% wget $1 $2
-	doskey open=%CONSOLE_BAT% open $1 $2
-	doskey home=%CONSOLE_BAT% home
-	doskey cron=%CONSOLE_BAT% cron $1 $2 $3 $4
-	doskey sync=%CONSOLE_BAT% sync $1 $2
-	doskey ls=%CONSOLE_BAT% ls $1
-	doskey rm=%CONSOLE_BAT% rm $1 $2 $3
-	color
-	goto :eof
-)
+if "%1" == "__init__" goto :__init__
 
 rem update 
-if "%1" == "update" (
-	bitsadmin.exe /transfer "update" %CONSOLE_SRC% %CONSOLE_BAT% > nul 2> nul
-	echo.
-	echo   Console.bat successfull updated!
-	echo   Type 'exit' or close and reopen.
-	goto :eof
-)
+if "%1" == "update" goto :update
 
 rem install 
 if "%1" == "install" goto :install
 
 rem include 
-if "%1" == "include" (
-	set sync=call %CONSOLE_BAT% sync
-	set console=call %CONSOLE_BAT%
-	goto :eof
-)
+if "%1" == "include" goto :include
 
 rem open 
 if "%1" == "path" (
@@ -63,15 +39,8 @@ if "%1" == "clear" (
 	goto :eof
 )
 
-rem open 
-if "%1" == "home" (
-	cd %CONSOLE_DIR%
-	echo.
-	echo   Opening root projects directory
-	echo   -------------------------------
-	echo   %CD%
-	goto :eof
-)
+rem home 
+if "%1" == "home" goto :home
 
 rem open 
 if "%1" == "open" (
@@ -157,7 +126,6 @@ if "%1" == "open" (
 
 rem cron
 if "%1" == "cron" (
-	rem if [%2] == [] goto :syntaxerror
 	if "%2" == "list" (
 		echo.
 		echo Task name                                Next execution at      Status
@@ -275,7 +243,8 @@ set PROMPT=%PROMP0%
 rem exit
 goto :eof 
 
-rem load variable
+
+rem loadvar
 :loadvar
 echo %* | findstr = > nul 2> nul
 if errorlevel 1 (
@@ -284,6 +253,24 @@ if errorlevel 1 (
    set "%*"
 )
 goto :eof
+
+
+rem __init__
+:__init__
+cls
+doskey console=%CONSOLE_BAT% $*
+doskey clear=%CONSOLE_BAT% clear
+doskey edit=%CONSOLE_BAT% edit $1
+doskey wget=%CONSOLE_BAT% wget $1 $2
+doskey open=%CONSOLE_BAT% open $1 $2
+doskey home=%CONSOLE_BAT% home
+doskey cron=%CONSOLE_BAT% cron $1 $2 $3 $4
+doskey sync=%CONSOLE_BAT% sync $1 $2
+doskey ls=%CONSOLE_BAT% ls $1
+doskey rm=%CONSOLE_BAT% rm $1 $2 $3
+color
+goto :eof
+
 
 rem install script
 :install
@@ -301,12 +288,40 @@ echo   Console.bat successfull installed!
 echo   Double-click on desktop icon to open.
 goto :eof
 
+
+rem update
+:update
+bitsadmin.exe /transfer "update" %CONSOLE_SRC% %CONSOLE_BAT% > nul 2> nul
+echo.
+echo   Console.bat successfull updated!
+echo   Type 'exit' or close and reopen.
+goto :eof
+
+
+rem include
+:include
+set sync=call %CONSOLE_BAT% sync
+set console=call %CONSOLE_BAT%
+goto :eof
+
+
+rem home
+:home
+cd %CONSOLE_DIR%
+echo.
+echo   Opening root projects directory
+echo   -------------------------------
+echo   %CD%
+goto :eof
+
+
 rem syntaxerror
 :syntaxerror
 echo.
 echo   Syntax error: missing argument 
 echo   Type 'console --help' for usage.
 goto :eof 
+
 
 rem syntaxerror
 :nodirerror

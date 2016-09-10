@@ -8,7 +8,7 @@ rem  * Licensed with The GNU General Public License v3.0
 rem  */
 
 rem set current version
-set CONSOLE_VER=0.1.0
+set CONSOLE_VER=0.1.1
 set CONSOLE_BAT=%~dpf0
 set CONSOLE_DIR=%~dp0
 set CONSOLE_SRC=https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat
@@ -41,20 +41,9 @@ if "%1" == "update" (
 )
 
 rem install 
-if "%1" == "install" (
-	if [%2] == [] goto :syntaxerror
-	bitsadmin.exe /transfer "install" %CONSOLE_SRC% %2\console.bat > nul 2> nul
-	echo set o = WScript.CreateObject("WScript.Shell"^).CreateShortcut("%HOMEDRIVE%%HOMEPATH%\Desktop\%~n2.lnk"^): o.TargetPath = "%2\console.bat": o.IconLocation = "cmd.exe": o.Save > %2\_.vbs
-	cscript %2\_.vbs > nul 2> nul 
-	del %2\_.vbs
-	attrib %2\console.bat +h +s
-	echo.
-	echo   Console.bat successfull installed!
-	echo   Double-click on desktop icon to open.
-	goto :eof
-)
+if "%1" == "install" goto :install
 
-rem install 
+rem include 
 if "%1" == "include" (
 	set sync=call %CONSOLE_BAT% sync
 	set console=call %CONSOLE_BAT%
@@ -286,13 +275,6 @@ set PROMPT=%PROMP0%
 rem exit
 goto :eof 
 
-rem invoce a syntaxerror
-:syntaxerror
-echo.
-echo   Syntax error: missing argument 
-echo   Type 'console --help' for usage.
-goto :eof 
-
 rem load variable
 :loadvar
 echo %* | findstr = > nul 2> nul
@@ -301,4 +283,31 @@ if errorlevel 1 (
 ) else (
    set "%*"
 )
+goto :eof
+
+rem install script
+:install
+if [%2] == [] goto :syntaxerror
+if not exist %2 goto :nodirerror
+bitsadmin.exe /transfer "install" %CONSOLE_SRC% %2\console.bat > nul 2> nul 
+echo set o = WScript.CreateObject("WScript.Shell"^).CreateShortcut("%HOMEDRIVE%%HOMEPATH%\Desktop\%~n2.lnk"^): o.TargetPath = "%2" + "\console.bat": o.IconLocation = "cmd.exe": o.Save > %2\_.vbs
+cscript %2\_.vbs > nul 2> nul 
+del %2\_.vbs
+attrib %2\console.bat +h +s
+echo.
+echo   Console.bat successfull installed!
+echo   Double-click on desktop icon to open.
+goto :eof
+
+rem syntaxerror
+:syntaxerror
+echo.
+echo   Syntax error: missing argument 
+echo   Type 'console --help' for usage.
+goto :eof 
+
+rem syntaxerror
+:nodirerror
+echo.
+echo   Error "%2" not is a directory.
 goto :eof

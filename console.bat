@@ -26,12 +26,8 @@ if "%1" == "install" goto :install
 rem include 
 if "%1" == "include" goto :include
 
-rem open 
-if "%1" == "path" (
-	set "PATH=%PATH%;%2"
-	echo.%2 >> %CONSOLE_VAR%	
-	goto :eof
-)
+rem path 
+if "%1" == "path" goto :path
 
 rem open 
 if "%1" == "clear" (
@@ -43,110 +39,10 @@ rem home
 if "%1" == "home" goto :home
 
 rem open 
-if "%1" == "open" (
-	if [%2] == [] goto :syntaxerror
-	cd %CONSOLE_DIR%
-    for /d %%a in (%2*) do (
-		cd %%a 
-		goto :subopen
-	)
-    for /d %%a in (*) do (
-		cd %%a
-		for /d %%b in (%2*) do (
-			cd %%b 
-			goto :subopen
-		)		
-		cd ..
-	)
-	for /d %%a in (*) do (
-		cd %%a
-		for /d %%b in (*) do (
-			cd %%b 
-			for /d %%c in (%2*) do (
-				cd %%c 
-				goto :subopen
-			)
-			cd ..
-		)		
-		cd ..
-	)
-	for /d %%a in (*) do (
-		cd %%a
-		for /d %%b in (*) do (
-			cd %%b 
-			for /d %%c in (*) do (
-				cd %%c 
-				for /d %%d in (%2*) do (
-					cd %%d 
-					goto :subopen
-				)
-				cd ..
-			)
-			cd ..
-		)		
-		cd ..
-	)
-	echo.
-	echo   Project directory not found: '%2*\%3*'
-	goto :eof
-	:subopen
-	if not [%3] == [] (
-		for /d %%a in (%3*) do (
-			cd %%a 
-			goto :open
-		)	
-		for /d %%a in (*) do (
-			cd %%a 
-			for /d %%b in (%3*) do (
-				cd %%b 
-				goto :open
-			)	
-			cd ..
-		)	
-		for /d %%a in (*) do (
-			cd %%a 
-			for /d %%b in (*) do (
-				cd %%b 
-				for /d %%c in (%3*) do (
-					cd %%c 
-					goto :open
-				)
-				cd ..
-			)	
-			cd ..
-		)			
-	)	
-	:open
-	echo.
-	echo   Opening project directory
-	echo   -------------------------
-	echo   %CD%
-	goto :eof 
-)
+if "%1" == "open" goto :open
 
 rem cron
-if "%1" == "cron" (
-	if "%2" == "list" (
-		echo.
-		echo Task name                                Next execution at      Status
-		echo ---------------------------------------- ---------------------- ---------------
-		schtasks /query | findstr console.bat
-		goto :eof
-	)
-	if "%2" == "every" (				
-		schtasks /create /sc %3 /tr %~dpf4 /tn "console.bat %2 %3 %~n4"
-		goto :eof
-	)
-	if "%2" == "weekly" (				
-		schtasks /create /sc weekly /tr %~dpf3 /tn "console.bat %2 %~n3"
-		goto :eof
-	)
-	if "%2" == "delete" (						
-		schtasks /delete /tn "console.bat %3 %4 %5" /f 
-		goto :eof
-	)	
-	goto :syntaxerror
-)
+if "%1" == "cron" goto :cron
 
 rem ls
 if "%1" == "ls" (
@@ -315,6 +211,120 @@ echo   %CD%
 goto :eof
 
 
+rem open
+:open
+if [%2] == [] goto :syntaxerror
+cd %CONSOLE_DIR%
+for /d %%a in (%2*) do (
+	cd %%a 
+	goto :subopen
+)
+for /d %%a in (*) do (
+	cd %%a
+	for /d %%b in (%2*) do (
+		cd %%b 
+		goto :subopen
+	)		
+	cd ..
+)
+for /d %%a in (*) do (
+	cd %%a
+	for /d %%b in (*) do (
+		cd %%b 
+		for /d %%c in (%2*) do (
+			cd %%c 
+			goto :subopen
+		)
+		cd ..
+	)		
+	cd ..
+)
+for /d %%a in (*) do (
+	cd %%a
+	for /d %%b in (*) do (
+		cd %%b 
+		for /d %%c in (*) do (
+			cd %%c 
+			for /d %%d in (%2*) do (
+				cd %%d 
+				goto :subopen
+			)
+			cd ..
+		)
+		cd ..
+	)		
+	cd ..
+)
+echo.
+echo   Project directory not found: '%2*\%3*'
+goto :eof
+:subopen
+if not [%3] == [] (
+	for /d %%a in (%3*) do (
+		cd %%a 
+		goto :open
+	)	
+	for /d %%a in (*) do (
+		cd %%a 
+		for /d %%b in (%3*) do (
+			cd %%b 
+			goto :open
+		)	
+		cd ..
+	)	
+	for /d %%a in (*) do (
+		cd %%a 
+		for /d %%b in (*) do (
+			cd %%b 
+			for /d %%c in (%3*) do (
+				cd %%c 
+				goto :open
+			)
+			cd ..
+		)	
+		cd ..
+	)			
+)	
+:open
+echo.
+echo   Opening project directory
+echo   -------------------------
+echo   %CD%
+goto :eof 
+
+
+
+rem path
+:path
+set "PATH=%PATH%;%2"
+echo.%2 >> %CONSOLE_VAR%	
+goto :eof
+
+
+rem cron
+:cron
+if "%2" == "list" (
+	echo.
+	echo Task name                                Next execution at      Status
+	echo ---------------------------------------- ---------------------- ---------------
+	schtasks /query | findstr console.bat
+	goto :eof
+)
+if "%2" == "every" (				
+	schtasks /create /sc %3 /tr %~dpf4 /tn "console.bat %2 %3 %~n4"
+	goto :eof
+)
+if "%2" == "weekly" (				
+	schtasks /create /sc weekly /tr %~dpf3 /tn "console.bat %2 %~n3"
+	goto :eof
+)
+if "%2" == "delete" (						
+	schtasks /delete /tn "console.bat %3 %4 %5" /f 
+	goto :eof
+)	
+goto :syntaxerror
+
+
 rem syntaxerror
 :syntaxerror
 echo.
@@ -323,8 +333,9 @@ echo   Type 'console --help' for usage.
 goto :eof 
 
 
-rem syntaxerror
+rem nodirerror
 :nodirerror
 echo.
 echo   Error "%2" not is a directory.
 goto :eof
+

@@ -289,8 +289,10 @@ rem install script
 :install
 if [%2] == [] goto :syntaxerror
 if not exist %2 goto :nodirerror
+set NOQUOTE0=%2
+set NOQUOTE1=%NOQUOTE0:"=%
 bitsadmin.exe /transfer "install" %CONSOLE_SRC% %2\console.bat > nul 2> nul 
-echo set o = WScript.CreateObject("WScript.Shell"^).CreateShortcut("%HOMEDRIVE%%HOMEPATH%\Desktop\%~n2.lnk"^): o.TargetPath = "%2" + "\console.bat": o.IconLocation = "cmd.exe": o.Save > %2\_.vbs
+echo set o = WScript.CreateObject("WScript.Shell"^).CreateShortcut("%HOMEDRIVE%%HOMEPATH%\Desktop\%~n2.lnk"^): o.TargetPath = "%NOQUOTE1%\console.bat": o.IconLocation = "cmd.exe": o.Save > %2\_.vbs
 cscript %2\_.vbs > nul 2> nul 
 del %2\_.vbs
 attrib %2\console.bat +h +s

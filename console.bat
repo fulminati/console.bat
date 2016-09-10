@@ -154,16 +154,16 @@ goto :eof
 rem __init__
 :__init__
 cls
-doskey console=%CONSOLE_BAT% $*
-doskey clear=%CONSOLE_BAT% clear
-doskey edit=%CONSOLE_BAT% edit $1
-doskey wget=%CONSOLE_BAT% wget $1 $2
-doskey open=%CONSOLE_BAT% open $1 $2
-doskey home=%CONSOLE_BAT% home
-doskey cron=%CONSOLE_BAT% cron $1 $2 $3 $4
-doskey sync=%CONSOLE_BAT% sync $1 $2
-doskey ls=%CONSOLE_BAT% ls $1
-doskey rm=%CONSOLE_BAT% rm $1 $2 $3
+doskey console="%CONSOLE_BAT%" $*
+doskey clear="%CONSOLE_BAT%" clear
+doskey edit="%CONSOLE_BAT%" edit $1
+doskey wget="%CONSOLE_BAT%" wget $1 $2
+doskey open="%CONSOLE_BAT%" open $1 $2
+doskey home="%CONSOLE_BAT%" home
+doskey cron="%CONSOLE_BAT%" cron $1 $2 $3 $4
+doskey sync="%CONSOLE_BAT%" sync $1 $2
+doskey ls="%CONSOLE_BAT%" ls $1
+doskey rm="%CONSOLE_BAT%" rm $1 $2 $3
 color
 goto :eof
 

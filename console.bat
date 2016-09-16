@@ -94,7 +94,7 @@ if not [%1] == [] (
 rem detect edit command
 set CONSOLE_EDT=%ProgramFiles(x86)%\Notepad++\notepad++.exe
 
-rem 
+rem load environtment vars
 if exist "%CONSOLE_VAR%" for /f "tokens=*" %%s in (%CONSOLE_VAR:)=^)%) do call :loadvar %%s
 
 rem save old dos prompt
@@ -293,8 +293,6 @@ rem cron
 :cron
 if "%2" == "list" (
 	echo.
-	echo Task name                                Next execution at      Status
-	echo ---------------------------------------- ---------------------- ---------------
 	schtasks /query | findstr console.bat
 	goto :eof
 )

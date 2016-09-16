@@ -48,23 +48,13 @@ rem rm
 if "%1" == "rm" goto :rm
 
 rem sync
-if "%1" == "sync" (
-	echo.
-	xcopy /c /d /e /h /i /r /y %2 %3
-	goto :eof
-)
+if "%1" == "sync" goto :sync
 
 rem wget
-if "%1" == "wget" (
-	bitsadmin.exe /transfer "wget" %2
-	goto :eof
-)
+if "%1" == "wget" goto :wget
 
-rem edit command
-if "%1" == "edit" (
-	start /b "" "%CONSOLE_EDT%" %2
-	goto :eof
-)
+rem edit 
+if "%1" == "edit" goto :edit
 
 rem edit command
 if "%1" == "--help" (
@@ -321,6 +311,22 @@ if "%2" == "delete" (
 	goto :eof
 )	
 goto :syntaxerror
+
+rem sync
+:sync
+echo.
+xcopy /c /d /e /h /i /r /y %2 %3
+goto :eof
+
+rem wget
+:wget
+bitsadmin.exe /transfer "wget" %2
+goto :eof
+
+rem edit
+:edit
+start /b "" "%CONSOLE_EDT%" %2
+goto :eof
 
 rem syntaxerror
 :syntaxerror

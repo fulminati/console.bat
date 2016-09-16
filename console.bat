@@ -29,11 +29,8 @@ if "%1" == "include" goto :include
 rem path 
 if "%1" == "path" goto :path
 
-rem open 
-if "%1" == "clear" (
-	cls
-	goto :eof
-)
+rem clear 
+if "%1" == "clear" goto :clear
 
 rem home 
 if "%1" == "home" goto :home
@@ -127,7 +124,7 @@ if [%PROMP0%] == [] set PROMP0=%PROMPT%
 rem set new prompt
 set PROMPT=#$S
 
-rem 
+rem enter in working dir
 cd %CONSOLE_DIR%
 
 rem launch indipend cmd.exe process
@@ -194,6 +191,11 @@ rem include
 :include
 set sync=call %CONSOLE_BAT% sync
 set console=call %CONSOLE_BAT%
+goto :eof
+
+rem clear
+:clear
+cls
 goto :eof
 
 rem home

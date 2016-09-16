@@ -45,14 +45,7 @@ rem ls
 if "%1" == "ls" goto :ls
 
 rem rm
-if "%1" == "rm" (
-	if "%2" == "-fr" (
-		erase /s /q /f %3 
-		rmdir /s /q %3
-		goto :eof
-	)
-	goto :syntaxerror
-)
+if "%1" == "rm" goto :rm
 
 rem sync
 if "%1" == "sync" (
@@ -292,9 +285,19 @@ attrib -a +h +s %CONSOLE_VAR%
 goto :eof
 
 rem ls
+:ls
 echo.
 dir /w /o:gn %2 | findstr /c:"^[^ ]" /r
 goto :eof
+
+rem rm
+:rm
+if "%2" == "-fr" (
+	erase /s /q /f %3 
+	rmdir /s /q %3
+	goto :eof
+)
+goto :syntaxerror
 
 rem cron
 :cron

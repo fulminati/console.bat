@@ -175,7 +175,7 @@ bitsadmin.exe /transfer "install" %CONSOLE_SRC% %2\console.bat > nul 2> nul
 echo set o = WScript.CreateObject("WScript.Shell"^).CreateShortcut("%HOMEDRIVE%%HOMEPATH%\Desktop\%~n2.lnk"^): o.TargetPath = "%NOQUOTE1%\console.bat": o.IconLocation = "cmd.exe": o.Save > %2\_.vbs
 cscript %2\_.vbs > nul 2> nul 
 del %2\_.vbs
-attrib %2\console.bat +h +s
+attrib -a +h +s %2\console.bat
 echo.
 echo   Console.bat successfull installed!
 echo   Double-click on desktop icon to open.
@@ -184,7 +184,7 @@ goto :eof
 rem update
 :update
 bitsadmin.exe /transfer "update" %CONSOLE_SRC% %CONSOLE_BAT% > nul 2> nul
-attrib %CONSOLE_BAT% +h +s
+attrib -a +h +s %CONSOLE_BAT%
 echo.
 echo   Console.bat successfull updated!
 echo   Type 'exit' or close and reopen.
@@ -290,7 +290,7 @@ rem path
 :path
 set "PATH=%PATH%;%2"
 echo.%2 >> %CONSOLE_VAR%	
-attrib %CONSOLE_VAR% +h +s
+attrib -a +h +s %CONSOLE_VAR%
 goto :eof
 
 rem cron

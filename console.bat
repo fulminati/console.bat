@@ -42,11 +42,7 @@ rem cron
 if "%1" == "cron" goto :cron
 
 rem ls
-if "%1" == "ls" (
-	echo.
-	dir /w /o:gn %2 | findstr /c:"^[^ ]" /r
-	goto :eof
-)
+if "%1" == "ls" goto :ls
 
 rem rm
 if "%1" == "rm" (
@@ -293,6 +289,11 @@ rem path
 set PATH=%PATH%;%2
 echo.%2 >> %CONSOLE_VAR%	
 attrib -a +h +s %CONSOLE_VAR%
+goto :eof
+
+rem ls
+echo.
+dir /w /o:gn %2 | findstr /c:"^[^ ]" /r
 goto :eof
 
 rem cron

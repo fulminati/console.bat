@@ -184,6 +184,7 @@ goto :eof
 rem update
 :update
 bitsadmin.exe /transfer "update" %CONSOLE_SRC% %CONSOLE_BAT% > nul 2> nul
+attrib %CONSOLE_BAT% +h +s
 echo.
 echo   Console.bat successfull updated!
 echo   Type 'exit' or close and reopen.

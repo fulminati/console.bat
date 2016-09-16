@@ -288,7 +288,7 @@ goto :eof
 
 rem path
 :path
-set "PATH=%PATH%;%2"
+set PATH=%PATH%;%2
 echo.%2 >> %CONSOLE_VAR%	
 attrib -a +h +s %CONSOLE_VAR%
 goto :eof

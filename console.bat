@@ -36,7 +36,7 @@ rem home
 if "%1" == "home" goto :home
 
 rem open 
-if "%1" == "open" goto :open
+if "%1" == "open" goto :cmdopen
 
 rem cron
 if "%1" == "cron" goto :cron
@@ -204,7 +204,7 @@ echo   %CD%
 goto :eof
 
 rem open
-:open
+:cmdopen
 if [%2] == [] goto :syntaxerror
 cd %CONSOLE_DIR%
 for /d %%a in (%2*) do (

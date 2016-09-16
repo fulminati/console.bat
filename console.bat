@@ -1,14 +1,14 @@
 @echo off
 
 rem /**
-rem  * Console.bat v0.1.2
+rem  * Console.bat v0.1.3
 rem  * ------------------
 rem  * Powered by Francesco Bianco <bianco@javanile.org>
 rem  * Licensed with The GNU General Public License v3.0
 rem  */
 
 rem set current version
-set CONSOLE_VER=0.1.2
+set CONSOLE_VER=0.1.3
 set CONSOLE_BAT=%~dpf0
 set CONSOLE_DIR=%~dp0
 set CONSOLE_SRC=https://raw.githubusercontent.com/Javanile/Console.bat/master/console.bat
@@ -139,7 +139,6 @@ set PROMPT=%PROMP0%
 rem exit
 goto :eof 
 
-
 rem loadvar
 :loadvar
 echo %* | findstr = > nul 2> nul
@@ -149,7 +148,6 @@ if errorlevel 1 (
    set "%*"
 )
 goto :eof
-
 
 rem __init__
 :__init__
@@ -167,7 +165,6 @@ doskey rm="%CONSOLE_BAT%" rm $1 $2 $3
 color
 goto :eof
 
-
 rem install script
 :install
 if [%2] == [] goto :syntaxerror
@@ -184,7 +181,6 @@ echo   Console.bat successfull installed!
 echo   Double-click on desktop icon to open.
 goto :eof
 
-
 rem update
 :update
 bitsadmin.exe /transfer "update" %CONSOLE_SRC% %CONSOLE_BAT% > nul 2> nul
@@ -193,13 +189,11 @@ echo   Console.bat successfull updated!
 echo   Type 'exit' or close and reopen.
 goto :eof
 
-
 rem include
 :include
 set sync=call %CONSOLE_BAT% sync
 set console=call %CONSOLE_BAT%
 goto :eof
-
 
 rem home
 :home
@@ -209,7 +203,6 @@ echo   Opening root projects directory
 echo   -------------------------------
 echo   %CD%
 goto :eof
-
 
 rem open
 :open
@@ -292,14 +285,12 @@ echo   -------------------------
 echo   %CD%
 goto :eof 
 
-
-
 rem path
 :path
 set "PATH=%PATH%;%2"
 echo.%2 >> %CONSOLE_VAR%	
+attrib %CONSOLE_VAR% +h +s
 goto :eof
-
 
 rem cron
 :cron
@@ -324,7 +315,6 @@ if "%2" == "delete" (
 )	
 goto :syntaxerror
 
-
 rem syntaxerror
 :syntaxerror
 echo.
@@ -332,10 +322,8 @@ echo   Syntax error: missing argument
 echo   Type 'console --help' for usage.
 goto :eof 
 
-
 rem nodirerror
 :nodirerror
 echo.
 echo   Error "%2" not is a directory.
 goto :eof
-
